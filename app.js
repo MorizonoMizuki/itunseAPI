@@ -1,17 +1,20 @@
 
-const Card = ({url,src,title,artist}) =>`
+
+const Card = ({url,result,title,artistName}) =>`
 <div class="col-4 mb-5">
         <a href="${url}"  target="_blank">
         <div class="card" >
-            <img src="${src}" class="card-img-top" alt="">
+            <img src="${result}" class="card-img-top" alt="">
             <div class="card-body">
             <h5 class="card-title">${title}</h5>
-            <p class="card-text">${artist}</p>
+            <p class="card-text">${artistName}</p>
             </div>
         </div> 
         </a>  
     </div>
 `;
+
+
 
 $("#button-addon2").on('click', () => {
 
@@ -34,12 +37,19 @@ $("#button-addon2").on('click', () => {
 
         for (let i = 0; i < response.results.length; i++) {
 
+            let src = response.results[i].artworkUrl30;
+            let result = src.replace(/30x30/g, '300x300');
+
+
+
+
 
          $(".row").append(
-            Card({ src: response.results[i].artworkUrl30,title:response.results[i].collectionCensoredName, artist:response.results[i].artistName,url:response.results[i].trackViewUrl})
+            Card({ result:result ,title:response.results[i].collectionCensoredName, artistName:response.results[i].artistName,url:response.results[i].trackViewUrl})
             ); 
         }
 
+        
 
         console.log(response)
         console.log(response.results[1].artworkUrl30)
@@ -56,3 +66,4 @@ $("#button-addon2").on('click', () => {
     });
 
 });
+
